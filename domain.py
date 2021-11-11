@@ -1,53 +1,63 @@
-# Rezervarile si implementarea lor
-
-def single_reservation():
-    """
-        Creeaza o rezervare ca instanta, intr-un dictionar.
-    """
-    return {
-        'id' : int,
-        'name' : str,
-        'class' : str,
-        'price' : int,
-        'checkin' : bool
+def creeazaRezervare(id, nume, clasa, pret, checkin):
+    '''return {
+        "id": id,
+        "nume": nume,
+        "clasa": clasa,
+        "pret": pret,
+        "checkin": checkin
     }
+    def get_id(rezervare):
+    return rezervare['id']
 
 
+def get_nume(rezervare):
+    return rezervare['nume']
 
 
-"""
-    Getteri si setteri
-"""
+def get_clasa(rezervare):
+    return rezervare['clasa']
 
 
-def get_reservation_index(reservations, reservation_id):
-    for i in range(len(reservations)):
-        if reservations[i]['id'] == reservation_id:
-            return i
-    return False
-
-def get_reservation_id(reservations,  index):
-    return reservations[index]['id']
-
-def get_reservations_name(reservations, index):
-    return reservations[index]['name']
-
-def get_reservation_class(reservations, index):
-    return reservations[index]['class']
-
-def get_reservation_price(reservations, index):
-    return reservations[index]['price']
-
-def get_reservation_checkin(reservations, index):
-    return reservations[index]['checkin']
+def get_pret(rezervare):
+    return rezervare['pret']
 
 
-def get_reservation_from_list(reservations, reservation_id):
-    for i in range(len(reservations)):
-        if reservations[i]['id'] == reservation_id:
-            return reservations[i]
+def get_checkin(rezervare):
+    return rezervare['checkin']'''
+    return [
+        id,
+        nume,
+        clasa,
+         pret,
+         checkin
+    ]
 
 
-def set_reservation_type_to_predefined(reservations, index, type, predefined):
-    reservations[index][type] = predefined
-    return reservations[index][type]
+def get_id(rezervare):
+    return rezervare[0]
+
+
+def get_nume(rezervare):
+    return rezervare[1]
+
+
+def get_clasa(rezervare):
+    return rezervare[2]
+
+
+def get_pret(rezervare):
+    return rezervare[3]
+
+
+def get_checkin(rezervare):
+    return rezervare[4]
+
+
+def toString(rezervare):
+    return "Id {}, Nume {}, Clasa {}, Pret {}, Check-in {}".format(
+        get_id(rezervare),
+        get_nume(rezervare),
+        get_clasa(rezervare),
+        get_pret(rezervare),
+        get_checkin(rezervare),
+    )

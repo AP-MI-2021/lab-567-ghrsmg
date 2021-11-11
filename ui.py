@@ -1,78 +1,73 @@
-# Interfata
-from domain import single_reservation
-from CRUD import add_wrong_input, remove_not_possible, modify_not_possible
+from CRUD import *
+from domain import *
+from logic import *
 
 
-def input_command():
-    return input(">>> ")
+def printMenu():
+    print("1.Adaugare rezervare")
+    print("2.Stergere rezervare")
+    print("3.Modificare rezervare")
+    print("4.Trecerea tuturor rezervărilor făcute pe un nume citit la o clasă superioară")
+    print("a.Afisare rezervari")
+    print("x.Iesire")
 
 
-def string_lower(string):
-    x = string.lower()
-    return x
+def uiAdaugaRezervare(lista):
+    id = input("Dati id-ul: ")
+    nume = input("Dati numele: ")
+    clasa = input("Dati clasa: ")
+    pret = float(input("Dati pret: "))
+    checkin = input("Dati check-in: ")
+    while clasa not in ['economy', 'economy plus', 'business']:
+        print("Clasele disponibile sunt economy, economy plus sau business")
+        clasa = input("Dati clasa: ")
+    while checkin not in ['da', 'nu']:
+        checkin = input("Dati check-in: ")
+        print("Datele introduse sunt gresite")
 
-def string_split(string):
-    x = string_lower(string)
-    x = x.split(maxsplit = 1)
-    return x
-
-def string_split_for_multiple_commands(stringg):
-    string_lower(stringg)
-    x = stringg.split('; ')
-    return x
-
-def input_reservation():
-    """
-        Creeaza o rezervare cu date specifice.
-    """
-    reservation = single_reservation()
-    reservation['id'] = (input("ID: "))
-    reservation['name'] = (input("Nume: "))
-    reservation['class'] = (input("Clasa: "))
-    reservation['price'] = (input("Pret: "))
-    reservation['checkin'] = input("Check-in: ")
-
-    reservation['checkin'] = string_lower(reservation['checkin'])
-
-    reservation['class'] = string_lower(reservation['class'])
-
-    return reservation
+    return adaugaRezervare(id, nume, clasa, pret, checkin, lista)
 
 
-def wrong_input():
-    print("Comanda introdusa este gresita, va rugam incercati din nou")
+def uiStergeRezervare(lista):
+    id = input("Dati id-ul rezervarii de sters: ")
+    return stergeRezervare(id, lista)
 
 
-def help():
-    print("Pentru lista de comenzi, tastati 'help'")
-
-def cmd_list():
-    print()
-    print("adauga - pentru a adauga o rezervare noua in lista")
-    print("sterge <introdu ID-ul rezervarii> - pentru a elimina o rezervare deja existenta in lista")
-    print("modifica <introdu ID-ul rezervarii> - pentru a modifica o datele unei rezervari din lista")
-    print("creste <introdu numele pe care s-a facut rezervarea> - creste clasa fiecarei rezervari pe acel nume")
-    print("reduce <introdu procent> - ieftineste cu procentul dat toate rezervarile cu check-in facut")
-    print("maxim - afiseaza pretul maxim al rezervarilor facute, in functie de clasa")
-    print("ordoneaza - ordoneaza descrescator toate rezervarile, in functie de pret")
-    print("afiseaza dupa nume - va afisa numele fiecarui client, impreuna cu suma totala a rezervarilor facute de el")
-    print("afisare lista - afiseaza lista de rezervari")
-    print("undo - anuleaza ultima comanda")
-    print("exit - iesirea din program")
+def uiModificaRezervare(lista):
+    id = input("Dati id-ul rezervarii de modificat: ")
+    nume = input("Dati noul numele: ")
+    clasa = input("Dati noua clasa: ")
+    pret = float(input("Dati noul pret: "))
+    checkin = input("Dati noul check-in: ")
+    return modificaRezervare(id, nume, clasa, pret, checkin, lista)
 
 
-def print_by_name(rez_name, rez_price):
-    print('Nume:', '\t\tTotal:')
-    for i in range(len(rez_name)):
-        print(rez_name[i], "\t\t", rez_price[i])
-
-def print_by_class(eco, eco_plus, business):
-    print("economy: ", eco)
-    print("economy plus: ", eco_plus)
-    print("business: ", business)
+def uiUpperClass(lista):
+    nume = input("Dati numele pe care sunt facute rezervarile:")
+    upperclass(nume, lista)
+    return lista
 
 
-def print_list(reservations):
-    print("ID", "\tNume", "\tClasa", "\tPret", "\tCheck-in")
-    for i in range(len(reservations)):
-        print(reservations[i]['id'], '\t', reservations[i]['name'], '\t', reservations[i]['class'], '\t', reservations[i]['price'], '\t', reservations[i]['checkin'])
+def showAll(lista):
+    for rezervare in range(len(lista)):
+        print(toString(lista[rezervare]))
+
+
+def runMenu(lista):
+    while True:
+        printMenu()
+        optiune = input("Dati optiunea: ")
+        if optiune == "1":
+            lista = uiAdaugaRezervare(lista)
+        elif optiune == "2":
+            lista = uiStergeRezervare(lista)
+        elif optiune == "3":
+            lista = uiModificaRezervare(lista)
+        elif optiune == "4":
+            lista = uiUpperClass(lista)
+        elif optiune == "a":
+            showAll(lista)
+        elif optiune == "x":
+            break
+        else:
+            print("Optiune gresita! Reincercati: ")
