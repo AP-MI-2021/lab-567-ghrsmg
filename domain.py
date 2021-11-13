@@ -28,8 +28,8 @@ def get_checkin(rezervare):
         id,
         nume,
         clasa,
-         pret,
-         checkin
+        pret,
+        checkin
     ]
 
 
