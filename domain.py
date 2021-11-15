@@ -61,3 +61,5 @@ def toString(rezervare):
         get_pret(rezervare),
         get_checkin(rezervare),
     )
+def set_pret(rezervare,pret):
+    rezervare[3]=pret
